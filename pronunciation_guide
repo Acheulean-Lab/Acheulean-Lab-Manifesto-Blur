@@ -1,0 +1,46 @@
+//Wrap text in a container with class `headertext`, and split words or phrases into `<span>`s:
+
+//Html
+   <div class="toptext"> 
+      Origins: The Acheulean <span class="IPA"> /<span class="ipa-symbol" data-ipa="ə">ə</span><span class="ipa-symbol" data-ipa="ˈ">ˈ</span><span class="ipa-symbol" data-ipa="ʃ">ʃ</span><span class="ipa-symbol" data-ipa="uː">uː</span><span class="ipa-symbol" data-ipa="l">l</span><span class="ipa-symbol" data-ipa="i">i</span><span class="ipa-symbol" data-ipa="ə">ə</span><span class="ipa-symbol" data-ipa="n">n</span>
+  </div>
+
+//JS
+
+document.addEventListener('DOMContentLoaded', function () {
+  const ipaDescriptions = {
+    "ə": "/a/: ‘a’ in 'about'.",
+    "ˈ": "/'/: primary stress follows",
+    "ʃ": "/ʃ/: ‘sh’ in 'shoe'.",
+    "uː": "/uː/: ‘oo’ in 'goose'.",
+    "l": "/l/: ‘l’ in 'like'.",
+    "i": "/ʃi/: ‘y’ in 'happy'.",
+    "n": "/n/: ‘n’ in 'night'."
+  };
+
+  document.querySelectorAll('.ipa-symbol').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      const ipa = el.dataset.ipa;
+      const explanation = ipaDescriptions[ipa];
+      if (!explanation) return;
+
+      const tooltip = document.createElement('div');
+      tooltip.className = 'ipa-tooltip';
+      tooltip.textContent = explanation;
+      document.body.appendChild(tooltip);
+
+      const rect = el.getBoundingClientRect();
+      tooltip.style.left = rect.left + window.scrollX + "px";
+      tooltip.style.top = rect.bottom + window.scrollY + 5 + "px";
+
+      el._tooltip = tooltip;
+    });
+
+    el.addEventListener('mouseleave', () => {
+      if (el._tooltip) {
+        el._tooltip.remove();
+        el._tooltip = null;
+      }
+    });
+  });
+});
