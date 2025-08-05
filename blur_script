@@ -1,0 +1,26 @@
+var selectedSpans = [];
+
+setInterval(function () {
+  const headertextDivs = document.querySelectorAll('.headertext');
+
+  headertextDivs.forEach(div => {
+    let spans = div.querySelectorAll('span');
+    let newSpan = null;
+
+    do {
+      var randomIndex = Math.floor(Math.random() * spans.length);
+      newSpan = spans[randomIndex];
+    } while (selectedSpans.includes(newSpan));
+
+    selectedSpans.push(newSpan);
+    newSpan.style.filter = 'blur(2.5px) opacity(40%)';
+    newSpan.style.transition = 'filter 0.7s ease-in-out';
+
+    setTimeout(function () {
+      newSpan.style.filter = '';
+      newSpan.style.transition = 'filter 0.7s ease-in-out';
+      var indexToRemove = selectedSpans.indexOf(newSpan);
+      selectedSpans.splice(indexToRemove, 1);
+    }, 1200);
+  });
+}, 850);
