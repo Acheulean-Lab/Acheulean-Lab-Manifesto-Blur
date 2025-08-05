@@ -1,4 +1,4 @@
-# Acheulean-Lab-Script-Anthologu
+# Acheulean Lab Scripts
 
 Collection of scripts used in [Acheulean Lab](https://www.acheuleanlab.com) 
 
